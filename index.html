@@ -3,28 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sretan rođendan!</title>
 
 <style>
     body {
-    margin: 0;
-    background: linear-gradient(135deg, #d7eaff, #b3d4ff);
-
-    overflow: hidden;
-    text-align: center;}
+        margin: 0;
+        background: linear-gradient(135deg, #d7eaff, #b3d4ff);
+        
+        overflow: hidden;
+        text-align: center;
+    }
 
     h1 {
         color: #0a4fa3;
         font-size: 48px;
         margin-top: 30px;
         text-shadow: 0 0 10px rgba(0, 80, 200, 0.4);
-        
     }
 
-    
+    /* SLIKA KOJA SE MIČE */
     #balon {
-           width: 25vw; 
-          height: auto;
-}
+        width: 140px;      /* možeš promijeniti veličinu */
+        height: auto;
+        position: absolute;
+        cursor: pointer;
+        transition: transform 0.2s;
+        user-select: none;
+    }
 
     #balon:hover {
         transform: scale(1.1);
@@ -41,29 +46,40 @@
 </head>
 
 <body>
-    
 
-<h1>Ulovi Kiru!</h1>
+<h1>Klikni sliku!</h1>
 
+<!-- OVDJE STAVI SVOJU SLIKU -->
 <img id="balon" src="IMG_1183.PNG">
-<div id="poruka">🎉❤️ Sretan rođendan! 😘🎉</div>
+
+<div id="poruka">🎉 Sretan rođendan! 🎉</div>
 
 <script>
     const balon = document.getElementById("balon");
     const poruka = document.getElementById("poruka");
 
     function pomakniBalon() {
-        let x = Math.random() * (window.innerWidth - 150);
-        let y = Math.random() * (window.innerHeight - 250);
+        let maxX = window.innerWidth - 160; 
+        let maxY = window.innerHeight - 220;
+
+        let x = Math.random() * maxX;
+        let y = Math.random() * maxY;
 
         balon.style.left = x + "px";
         balon.style.top = y + "px";
     }
 
+    // Klik za računalo
     balon.onclick = () => {
         balon.style.display = "none";
         poruka.style.display = "block";
     };
+
+    // Touch za mobitel
+    balon.addEventListener("touchstart", () => {
+        balon.style.display = "none";
+        poruka.style.display = "block";
+    });
 
     setInterval(pomakniBalon, 900);
     pomakniBalon();
