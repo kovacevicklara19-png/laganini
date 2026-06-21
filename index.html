@@ -9,7 +9,7 @@
     body {
         margin: 0;
         background: linear-gradient(135deg, #d7eaff, #b3d4ff);
-        
+    
         overflow: hidden;
         text-align: center;
     }
@@ -23,12 +23,14 @@
 
     /* SLIKA KOJA SE MIČE */
     #balon {
-        width: 140px;      /* možeš promijeniti veličinu */
+        width: 140px;
         height: auto;
         position: absolute;
         cursor: pointer;
         transition: transform 0.2s;
         user-select: none;
+        touch-action: manipulation; /* VAŽNO ZA MOBITEL */
+        pointer-events: auto;
     }
 
     #balon:hover {
@@ -47,20 +49,20 @@
 
 <body>
 
-<h1>Klikni sliku!</h1>
+<h1>Ulovi Kiru!</h1>
 
 <!-- OVDJE STAVI SVOJU SLIKU -->
 <img id="balon" src="IMG_1183.PNG">
 
-<div id="poruka">🎉 Sretan rođendan! 🎉</div>
+<div id="poruka">🎉❤️ Sretan rođendan! 😘🎉</div>
 
 <script>
     const balon = document.getElementById("balon");
     const poruka = document.getElementById("poruka");
 
     function pomakniBalon() {
-        let maxX = window.innerWidth - 160; 
-        let maxY = window.innerHeight - 220;
+        let maxX = Math.max(0, window.innerWidth - balon.offsetWidth);
+        let maxY = Math.max(0, window.innerHeight - balon.offsetHeight - 50);
 
         let x = Math.random() * maxX;
         let y = Math.random() * maxY;
@@ -76,9 +78,12 @@
     };
 
     // Touch za mobitel
-    balon.addEventListener("touchstart", () => {
-        balon.style.display = "none";
-        poruka.style.display = "block";
+    balon.addEventListener("touchstart", (e) => {
+        e.preventDefault(); // sprječava skrolanje
+        setTimeout(() => {
+            balon.style.display = "none";
+            poruka.style.display = "block";
+        }, 50);
     });
 
     setInterval(pomakniBalon, 900);
